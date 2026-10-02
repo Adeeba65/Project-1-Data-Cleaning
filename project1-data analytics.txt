@@ -1,0 +1,23 @@
+import pandas as pd
+
+# Load Dataset
+df = pd.read_csv('Dataset for Data Analytics.csv')
+
+# Handle Missing Values
+df['CouponCode'] = df['CouponCode'].fillna('None')
+
+# Remove Duplicates
+df = df.drop_duplicates()
+
+# Correct Formats
+df['Date'] = pd.to_datetime(df['Date'], errors='coerce')
+df['UnitPrice'] = df['UnitPrice'].round(2)
+df['TotalPrice'] = df['TotalPrice'].round(2)
+df['Product'] = df['Product'].str.strip().str.title()
+
+# Verification Column
+df['CheckTotal'] = df['Quantity'] * df['UnitPrice']
+
+# Export
+df.to_csv('Cleaned_Dataset_Final.csv', index=False)
+print("Project 1 Complete!")
